@@ -1,0 +1,32 @@
+services:
+  task-management-be:
+    build:
+      context: task-management-be
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+  task-management-fe:
+    build:
+      context: task-management-fe
+      dockerfile: Dockerfile
+    ports:
+      - "4200:80"
+    depends_on:
+      - task-management-be
+  postgres:
+    image: 'postgres:latest'
+    environment:
+      - 'POSTGRES_DB=task-management'
+      - 'POSTGRES_PASSWORD=postgres'
+      - 'POSTGRES_USER=postgres'
+    ports:
+      - '5432'
+  rabbitmq:
+    image: 'rabbitmq:latest'
+    environment:
+      - 'RABBITMQ_DEFAULT_PASS=secret'
+      - 'RABBITMQ_DEFAULT_USER=myuser'
+    ports:
+      - '5672'
