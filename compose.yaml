@@ -30,3 +30,24 @@ services:
       - 'RABBITMQ_DEFAULT_USER=myuser'
     ports:
       - '5672'
+  minio:
+    image: 'minio/minio'
+    ports:
+      - '9000:9000'
+      - '9001:9001'
+    environment:
+      - "MINIO_ROOT_USER=root"
+      - "MINIO_ROOT_PASSWORD=minioadmin"
+    volumes:
+      - ./data:/data
+    command: server --console-address ":9001" /data
+  portainer:
+    image: 'portainer/portainer-ce:latest'
+    ports:
+      - "9443:8000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: unless-stopped
+
+volumes:
+  minio_storage: {}

@@ -24,6 +24,13 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(ErrorResponse.builder().message(message).build(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    @ExceptionHandler(TaskManagementException.class)
+    protected ResponseEntity<Object> handleServiceException(TaskManagementException e) {
+        var message = getMessage(e.getMessage());
+        log.error(e.getMessage());
+        return new ResponseEntity<>(ErrorResponse.builder().message(message).build(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
     private String getMessage(String key) {
         return messageSource.getMessage(key, null, Locale.ROOT);
     }
