@@ -8,16 +8,18 @@ spring:
     hibernate:
       ddl-auto: update
       show-sql: true
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
-    database: postgres
+    database: POSTGRESQL
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
   application:
     name: task-management
 
 minio:
   enabled: true
   url: http://localhost:9000
-  accessKey: ${MINIO_ACCESS_KEY}
-  secretKey: ${MINIO_SECRET_KEY}
+  rootUser: ${MINIO_ROOT_USER}
+  rootPass: ${MINIO_ROOT_PASSWORD}
   bucketName: task-management-bucket
 
 logging:

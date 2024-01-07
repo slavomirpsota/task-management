@@ -2,7 +2,7 @@ package org.psota.taskmanagementbe.mapper;
 
 import org.mapstruct.Mapper;
 import org.psota.taskmanagementbe.api.request.RegistrationRequest;
-import org.psota.taskmanagementbe.persistance.entity.User;
+import org.psota.taskmanagementbe.persistence.entity.User;
 
 @Mapper(componentModel = "spring")
 public interface UserMapper {

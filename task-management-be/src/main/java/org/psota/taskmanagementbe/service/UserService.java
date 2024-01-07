@@ -6,15 +6,12 @@ import org.psota.taskmanagementbe.api.request.RegistrationRequest;
 import org.psota.taskmanagementbe.api.response.AuthenticationResponse;
 import org.psota.taskmanagementbe.exception.ServiceException;
 import org.psota.taskmanagementbe.mapper.UserMapper;
-import org.psota.taskmanagementbe.persistance.dao.RoleDao;
-import org.psota.taskmanagementbe.persistance.dao.UserDao;
-import org.psota.taskmanagementbe.persistance.entity.User;
+import org.psota.taskmanagementbe.persistence.dao.RoleDao;
+import org.psota.taskmanagementbe.persistence.dao.UserDao;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
-import java.util.Map;
 import java.util.Set;
 
 @Service

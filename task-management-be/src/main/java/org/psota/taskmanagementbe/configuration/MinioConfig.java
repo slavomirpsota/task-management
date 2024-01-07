@@ -30,14 +30,11 @@ public class MinioConfig {
     @Value("${minio.url}")
     private String minioUrl;
 
-    @Value("${MINIO_ROOT_USER}")
+    @Value("${minio.rootUser}")
     private String rootUser;
 
-    @Value("${MINIO_ROOT_PASSWORD}")
+    @Value("${minio.rootPass}")
     private String rootPass;
-
-    @Value("${minio.bucketName}")
-    private String bucketName;
 
     @Bean
     public MinioClient minioClient() {
@@ -45,23 +42,5 @@ public class MinioConfig {
                 .endpoint(minioUrl)
                 .credentials(rootUser, rootPass)
                 .build();
-    }
-
-    @PostConstruct
-    public void createBucketIfNotExists() throws TaskManagementException {
-        try {
-            var minioClient = minioClient();
-            boolean bucketExists = minioClient.bucketExists(BucketExistsArgs.builder().bucket(bucketName).build());
-            if (!bucketExists) {
-                minioClient.makeBucket(MakeBucketArgs.builder().bucket(bucketName).build());
-                log.info("Minio bucket created: " + bucketName);
-            } else {
-                log.info("Minio bucket already exists: " + bucketName);
-            }
-        } catch (ServerException | InsufficientDataException | ErrorResponseException | IOException |
-                 NoSuchAlgorithmException | InvalidKeyException | InvalidResponseException | XmlParserException |
-                 InternalException e) {
-            throw new TaskManagementException("minio.bucket.create-error");
-        }
     }
 }
