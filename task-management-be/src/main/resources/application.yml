@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://postgres:5432/task-management
+    url: jdbc:postgresql://localhost:5432/task-management
     username: postgres
     password: postgres
     driverClassName: org.postgresql.Driver
@@ -18,12 +18,14 @@ spring:
 minio:
   enabled: true
   url: http://localhost:9000
-  rootUser: ${MINIO_ROOT_USER}
-  rootPass: ${MINIO_ROOT_PASSWORD}
+#  todo: if running in docker
+#   rootUser: ${MINIO_ROOT_USER}
+#   rootPass: ${MINIO_ROOT_PASSWORD}
+  rootUser: root
+  rootPass: minioadmin
   bucketName: task-management-bucket
 
 logging:
   level:
-    org:
-      springframework: DEBUG
+    root: DEBUG
     hibernate: DEBUG

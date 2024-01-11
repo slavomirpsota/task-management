@@ -1,4 +1,4 @@
-package org.psota.taskmanagementbe.service;
+package org.psota.taskmanagementbe.service.util;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -21,12 +21,6 @@ public class JwtService {
     private static final String SECRET_KEY = "RUUYSHSX2GOPQJPVU7GBDA2ODRGLHHOSLRVW6O43FSJIZMIDT8SRRYTJLRATVFQ3";
     private static final int TOKEN_VALID_DAYS = 10;
 
-    /**
-     * Extracts username from token claim
-     *
-     * @param token - request token
-     * @return - username from token claim
-     */
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
     }
@@ -35,14 +29,18 @@ public class JwtService {
         return generateToken(new HashMap<>(), userDetails);
     }
 
-    /**
-     *
-     * @param extraClaims - extra claims if we want to add something custom
-     * @param userDetails - logged in user details
-     * @return - generated token active for {@value #TOKEN_VALID_DAYS} days
-     */
     public String generateToken(Map<String, Object> extraClaims, UserDetails userDetails) {
-        return Jwts.builder()
+        return buildToken(extraClaims, userDetails);
+    }
+
+    public String generateRefreshToken(UserDetails userDetails) {
+        return buildToken(new HashMap<>(), userDetails);
+    }
+
+    private String buildToken(
+            Map<String, Object> extraClaims, UserDetails userDetails) {
+        return Jwts
+                .builder()
                 .setClaims(extraClaims)
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))

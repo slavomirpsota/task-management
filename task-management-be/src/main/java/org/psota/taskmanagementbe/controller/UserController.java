@@ -1,5 +1,7 @@
 package org.psota.taskmanagementbe.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.psota.taskmanagementbe.api.request.AuthenticationRequest;
 import org.psota.taskmanagementbe.api.request.RegistrationRequest;
@@ -11,6 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/api/v1/auth")
@@ -29,5 +33,9 @@ public class UserController {
         return ResponseEntity.ok().body(userService.authenticateUser(request));
     }
 
+    @PostMapping("/refresh-token")
+    public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws  IOException {
+        userService.refreshToken(request, response);
+    }
 
 }

@@ -1,4 +1,4 @@
-package org.psota.taskmanagementbe.service;
+package org.psota.taskmanagementbe.service.util;
 
 import io.minio.GetObjectArgs;
 import io.minio.GetObjectResponse;
